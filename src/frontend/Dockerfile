@@ -31,6 +31,9 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=deps /app/node_modules ./node_modules
 
+COPY ./src/frontend/_override/opentelemetry-instrumentation-grpc-*.tgz ./
+RUN tar -xvf ./opentelemetry-instrumentation-grpc-*.tgz && rm -rf ./node_modules/@opentelemetry/instrumentation-grpc/build/src && mv ./package/build/src ./node_modules/@opentelemetry/instrumentation-grpc/build
+
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
