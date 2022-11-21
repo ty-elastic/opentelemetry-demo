@@ -40,6 +40,8 @@ COPY mix.exs mix.lock ./
 RUN mix deps.get --only $MIX_ENV
 RUN mkdir config
 
+COPY _override/opentelemetry_grpcbox/src/otel_grpcbox_interceptor.erl ./deps/opentelemetry_grpcbox/src/otel_grpcbox_interceptor.erl
+
 # copy compile-time config files before we compile dependencies
 # to ensure any relevant config change will trigger the dependencies
 # to be re-compiled.
